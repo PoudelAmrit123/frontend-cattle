@@ -66,7 +66,12 @@ export default function ReportPage() {
 
 
     const uri = `http://localhost:8080/api/report/${cowID}/timestamp?dur=${duration}&details=${detailsValue}`
-       const response  = await fetch(uri)
+       const response  = await fetch(uri , {
+        headers  : {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('userEmail')}`
+        }
+       })
         if ( response.ok){
 
 
@@ -111,12 +116,13 @@ export default function ReportPage() {
           <select
             value={timeDuration}
             onChange={(e) => setTimeDuration(e.target.value)}
-            className="border border-gray-300 rounded-lg py-2 px-4 text-sm"
+            className="border border-gray-300 rounded-lg py-2 px-4 bg-white text-sm"
           >
-            <option value="30">Last 30 minutes</option>
-            <option value="60">Last 1 hour</option>
-            <option value="120">Last 1 day</option>
-            <option value="180">Last 30 days</option>
+            <option value={30}>Last 30 min</option>
+              <option value={60}>Last 1 hour</option>
+              <option value={1440}>Last 24 hours</option>
+              <option value={10080}>Last 7 days</option>
+              <option value={43200}>Last 30 days</option>
             <option value="all">All -Time</option>
           </select>
         </div>

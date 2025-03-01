@@ -10,7 +10,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
   } from "@/components/ui/sidebar";
-  import { Activity, FileChartColumnIncreasingIcon, LayoutDashboard, User } from "lucide-react";
+  import { Activity, FileChartColumnIncreasingIcon, LayoutDashboard, LogOut, User } from "lucide-react";
   import { Link } from "react-router";
 
   
@@ -80,6 +80,31 @@ import {
                     <Link to="/report" className="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-md">
                       <FileChartColumnIncreasingIcon className="w-5 h-5" />
                       <span>Report</span>
+                    </Link>
+                  </SidebarMenuButton>
+                  
+                </SidebarMenuItem>
+               
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+
+
+          {/* {Profile} */}
+
+          <SidebarGroup>
+            <SidebarGroupLabel>Profile</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                
+                 
+              
+                <SidebarMenuItem>
+               
+                  <SidebarMenuButton asChild>
+                    <Link to="/logout" className="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-md">
+                      <LogOut className="w-5 h-5" />
+                      <span>Logout</span>
                     </Link>
                   </SidebarMenuButton>
                   

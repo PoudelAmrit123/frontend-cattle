@@ -6,17 +6,22 @@ function CattleDetails() {
   const { id } = useParams(); 
   const [cowDetails, setCowDetails] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [selectedDuration, setSelectedDuration] = useState("30"); // Default: Last 30 mins
+  const [selectedDuration, setSelectedDuration] = useState("30"); 
   const [detailedActivity, setDetailedActivity] = useState([]);
-  const [showDetails, setShowDetails] = useState(false); // Toggle for detailed logs
-
+  const [showDetails, setShowDetails] = useState(false); 
   useEffect(() => {
     const fetchCattleDetails = async () => {
       try {
 
         const uri = selectedDuration === "allTime" ? `http://localhost:8080/api/cow/activity/${id}` : `http://localhost:8080/api/cow/activity/${id}/timestamp?dur=${selectedDuration}`
         console.log('the uri is ' , uri)  // Debugging purpose only.
-        const response = await fetch(uri);
+        const response = await fetch(uri , {
+          headers :  {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${localStorage.getItem('userEmail')}`  
+            },
+          
+        });
         const data = await response.json();
         console.log('the data to stored in detailedActivity State is  ' , data.data.dataWithInTimeStamp)
         setCowDetails(data.data);

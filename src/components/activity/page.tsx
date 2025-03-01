@@ -12,6 +12,7 @@ function ActivityPage() {
   const [totalCows, setTotalCows] = useState(0);
   const [duration, setDuration] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
+  const [check , setCheck] =  useState('')
   const [cattleList, setCattleList] = useState<{ id: string; name: string }[]>([]);
   const navigate = useNavigate();
 
@@ -21,14 +22,21 @@ function ActivityPage() {
         selectedDuration === "all"
           ? "http://localhost:8080/api/cows/activity"
           : `http://localhost:8080/api/cows/activity?dur=${selectedDuration}`;
+          console.log('the uri form the activity page is ' , url)
 
-      const res = await fetch(url);
+      const res = await fetch(url , {
+        headers : {
+          'Content-Type' : "application/json" ,
+          'Authorization': `Bearer ${localStorage.getItem('userEmail')}`
+        }
+      });
       const response = await res.json();
 
       if (response.data) {
         setData(response.data.returnData);
         setTotalBehaviors(response.data.totalBehaviors);
         setTotalCows(response.data.length);
+        setCheck(response.data.duration)
 
        const newCattleList = Array.from({ length: response.data.length }, (_, i) => ({
           id: (i + 1).toString(),
@@ -60,6 +68,8 @@ function ActivityPage() {
     navigate(`/cattle/${cowId}`);
   }
 
+
+  console.log('the check is ' , check)
   return (
     <div className="p-6">
       <Card className="mb-4">

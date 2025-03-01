@@ -17,7 +17,12 @@ function CattleProfile() {
       try {
         setLoading(true);
         const response = await fetch(
-          `http://localhost:8080/api/cows/activity`
+          `http://localhost:8080/api/cows/activity` , {
+            headers : {
+              'Content-Type' :'application/json' ,
+              'Authorization': `Bearer ${localStorage.getItem('userEmail')}`
+            }
+          }
         );
         const data = await response.json();
         console.log('the data in cattle is ' ,data)
@@ -54,7 +59,7 @@ function CattleProfile() {
           onChange={(e) => setSearchId(e.target.value)}
         />
 
-        <select
+        {/* <select
           className="p-2 border rounded-md bg-white"
           value={timeFilter}
           onChange={(e) => setTimeFilter(e.target.value)}
@@ -64,7 +69,7 @@ function CattleProfile() {
           <option value="last_24_hr">Last 24 Hours</option>
           <option value="last_7_days">Last 7 Days</option>
           <option value="last_30_days">Last 30 Days</option>
-        </select>
+        </select> */}
       </div>
 
       {loading ? (
